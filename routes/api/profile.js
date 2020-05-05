@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
+const Post = require('../../models/Post');
 const request = require('request');
 const { check, validationResult } = require('express-validator');
 
@@ -39,7 +40,7 @@ router.post('/', [auth, check('status', 'Status field is required').not().isEmpt
             return res.status(400).json({
                 errors: errors.array()
             });
-        }
+        };
         const { company, website, location, bio, status,
                 githubusername, skills, youtube, facebook, twitter,
                 instagram, linkedin } = req.body;
@@ -81,7 +82,7 @@ router.post('/', [auth, check('status', 'Status field is required').not().isEmpt
         }
         catch (err) {
             console.log(err.message);
-            res.status(500).send('Server error');
+            return res.status(500).send('Server error');
 
         }
 });
@@ -134,7 +135,8 @@ router.get('/user/:user_id', async (req, res) => {
 
 router.delete('/', auth, async (req, res) => {
     try {
-        // @todo - remove users post
+        // Remove users post
+        await Post.deleteMany({ user: req.user.id })
         // Remove profile
         await Profile.findOneAndRemove({ user: req.user.id });
         // Remove user
@@ -147,10 +149,10 @@ router.delete('/', auth, async (req, res) => {
 });
 
 // @desc    Add profile experience
-// @route   POST api/profile/experience
+// @route   PUT api/profile/experience
 // @access  Private
 
-router.post('/experience', [ auth, [
+router.put('/experience', [ auth, [
     check('title', 'Title is required').not().isEmpty(),
     check('company', 'Company is required').not().isEmpty(),
     check('from', 'From date is required').not().isEmpty()
@@ -195,10 +197,10 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 });
 
 // @desc    Add profile education
-// @route   POST api/profile/education
+// @route   PUT api/profile/education
 // @access  Private
 
-router.post('/education', [ auth, [
+router.put('/education', [ auth, [
     check('school', 'School is required').not().isEmpty(),
     check('degree', 'Degree is required').not().isEmpty(),
     check('fieldofstudy', 'Field of study is required').not().isEmpty(),
