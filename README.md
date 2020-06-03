@@ -1,4 +1,4 @@
-# devnetwork Quick Start
+# Devnetwork Quick Start
 
 ### Edit config.env file in config folder with the following
 
