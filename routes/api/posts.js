@@ -127,10 +127,10 @@ router.put('/like/:id', auth, async (req, res) => {
 });
 
 // @desc    Unlike a post
-// @route   DELETE api/posts/unlike/:id
+// @route   PUT api/posts/unlike/:id
 // @access  Private
 
-router.delete('/unlike/:id', auth, async (req, res) => {
+router.put('/unlike/:id', auth, async (req, res) => {
     try{
         const post = await Post.findById(req.params.id);
         if(post.likes.filter(like => like.user.toString() === req.user.id).length == 0){
@@ -157,7 +157,7 @@ router.delete('/unlike/:id', auth, async (req, res) => {
 // @route   PUT api/posts/comment/:id
 // @access  Private
 
-router.put('/comment/:id', [auth, [
+router.post('/comment/:id', [auth, [
     check('text', 'Text is required').not().isEmpty()
 ]], async (req, res) => {
     const errors = validationResult(req);

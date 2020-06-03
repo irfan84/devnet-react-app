@@ -12,7 +12,7 @@ import Spinner from "../layout/spinner";
 const Dashboard = ({ getCurrentProfile, auth: { user }, profile: {profile, loading}, deleteAccount }) => {
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+    }, [getCurrentProfile]);
     return profile === null && loading === true ? <Spinner /> : <Fragment>
         <h1 className="large text-primary">
             Dashboard

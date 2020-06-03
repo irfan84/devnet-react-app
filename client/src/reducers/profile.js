@@ -11,29 +11,29 @@ const initialState = {
 export default function(state = initialState, action) {
     const {type, payload} = action;
     switch (type) {
-        case 'GET_PROFILE':
-        case 'UPDATE_PROFILE':
+        case GET_PROFILE:
+        case UPDATE_PROFILE:
             return {
             ...state,
             profile: payload,
             loading: false
             };
 
-        case 'GET_PROFILES':
+        case GET_PROFILES:
             return {
                 ...state,
-                profile: payload,
+                profiles: payload,
                 loading: false
             };
 
-        case 'PROFILE_ERROR':
+        case PROFILE_ERROR:
             return {
             ...state,
             error: payload,
             loading: false
             };
 
-        case 'CLEAR_PROFILE':
+        case CLEAR_PROFILE:
             return {
                 ...state,
                 profile: null,
@@ -41,7 +41,7 @@ export default function(state = initialState, action) {
                 loading: false
             };
 
-        case 'GET_REPOS':
+        case GET_REPOS:
             return {
                 ...state,
                 repos: payload,
