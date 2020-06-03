@@ -5,6 +5,7 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 const Post = require('../../models/Post');
 const request = require('request');
+const axios = require('axios');
 const { check, validationResult } = require('express-validator');
 
 // @desc    Get current users profile
@@ -256,7 +257,7 @@ router.get('/github/:username', async (req, res) => {
         console.log(uri);
         const headers = {
             'user-agent': 'node.js',
-            Authorization: `token ${config.get('githubToken')}`
+            'Authorization': `token ${process.env.GITHUB_TOKEN}`
         };
 
         const gitHubResponse = await axios.get(uri, { headers });
