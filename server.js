@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 // Load env vars
-dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: './config/production.env' });
 
 // Connect database
 connectDB();
