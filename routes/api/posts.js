@@ -215,7 +215,6 @@ router.post('/comment/:id', [auth, [
         res.status(200).json(post.comments);
     }
     catch(err){
-        console.log(err.message);
         res.status(500).send('Server error');
     }
     });
